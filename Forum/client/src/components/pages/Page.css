@@ -1,0 +1,33 @@
+.page {
+    background:rgb(33, 62, 66);
+    color: white;
+    height: 80vh;
+}
+
+.post-details-page {
+    padding: 15px;
+}
+
+.post-reply {
+    float: right;
+}
+
+.navbar {
+    background: rgb(26, 48, 51);    
+}
+
+.navbar-right {
+    float: right;
+    border: 1px solid gray;
+    color: white;
+    margin-left: 20px;
+    margin-right: 5px;
+    margin-top: 15px;
+}
+
+.avatar {
+    margin: 10px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%
+}

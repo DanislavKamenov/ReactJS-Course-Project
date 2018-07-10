@@ -1,0 +1,11 @@
+.card{
+    display: inline-block;
+    margin: 20px;
+    background: rgb(26, 48, 51);  
+    vertical-align: top;
+}
+
+.card-img-top {
+    height: 70px;
+    width: 70px;
+}

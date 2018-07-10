@@ -1,0 +1,26 @@
+.post-details, .comment-details {
+    background: #A8C1C8;
+    display: block;
+    border: 1px solid gray;
+    overflow: auto;
+    margin-bottom: 15px;
+}
+
+.creator {
+    float: left;
+}
+
+.content {
+    text-align: left
+}
+
+.details-footer {
+    clear: both;
+}
+
+.created-on {
+    text-align: right;
+    font-style: italic;
+    margin: 0 10px 5px 0;
+    color: rgb(99, 98, 98);    
+}
