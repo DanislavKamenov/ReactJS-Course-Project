@@ -44,10 +44,10 @@ module.exports = {
                 .then(resolve)
                 .catch(reject);
         }),
-    update: (query, updatedComment, options) =>
+    update: (query, updatedEntity, options) =>
         new Promise((resolve, reject) => {
             commentCrud
-                .update(query, updatedComment, options)
+                .update(query, updatedEntity, options)
                 .then(resolve)
                 .catch(reject);
         }),

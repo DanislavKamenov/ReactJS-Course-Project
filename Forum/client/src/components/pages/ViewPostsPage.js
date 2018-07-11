@@ -3,7 +3,7 @@ import ViewPosts from '../post/ViewPosts';
 import webApi from '../../webModule/webApi';
 import CreatePost from './../post/CreatePost';
 import Button from '../buttons/Button';
-import withAuthentication from '../hocs/withAuthorization';
+import withAuthorization from '../hocs/withAuthorization';
 import authService from '../../webModule/authService';
 
 
@@ -12,7 +12,7 @@ class ViewPostsPage extends Component {
         super(props);
 
         this.state = {
-            posts: {},
+            posts: [],
             showForm: false
         };
     }
@@ -50,4 +50,4 @@ class ViewPostsPage extends Component {
     }
 };
 
-export default withAuthentication(ViewPostsPage, 'user');
+export default withAuthorization(ViewPostsPage, 'user');

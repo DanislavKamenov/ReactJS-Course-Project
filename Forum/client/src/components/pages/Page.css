@@ -1,7 +1,8 @@
 .page {
     background:rgb(33, 62, 66);
     color: white;
-    height: 80vh;
+    min-height: 80vh;
+    overflow: hidden;
 }
 
 .post-details-page {
@@ -18,11 +19,16 @@
 
 .navbar-right {
     float: right;
+    position: absolute;
+    right: 50px;
+    top: 60px;
     border: 1px solid gray;
     color: white;
     margin-left: 20px;
     margin-right: 5px;
     margin-top: 15px;
+    text-align: left;
+    z-index: 1;
 }
 
 .avatar {

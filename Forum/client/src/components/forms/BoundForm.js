@@ -22,13 +22,13 @@ class BoundForm extends Component {
         const validationResult = helperService.validateForm(this.state);
         if (validationResult.success) {
             webApi.post(this.props.endPoint, this.state)
-                .then((res) => {
+                .then((res) => { 
                     this.props.onSubmit(res);
-                    observer.trigger(observer.events.notification, (res))
+                    observer.trigger(observer.events.notification, (res));
                 })
                 .catch(err => {
                     this.props.getErrors(err);
-                    observer.trigger(observer.events.notification, (err))
+                    observer.trigger(observer.events.notification, (err));
                     console.log(err);
                 });
         } else {
@@ -55,8 +55,7 @@ class BoundForm extends Component {
                                 }
                                 if (isErrorField(child)) {
                                     return <div {...child.props}>{this.props.errors[child.props['data-name']]}</div>
-                                }
-                                console.log(child.props.onClick);
+                                }                                
                                 return child;
                             })}
                         </fieldset>

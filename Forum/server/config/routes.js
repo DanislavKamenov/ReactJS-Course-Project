@@ -7,6 +7,7 @@ module.exports = (app) => {
     app.use('/post/', routes.postRoutes);
     app.use('/comment/', routes.commentRoutes);
     app.use('/user/', routes.userRoutes);
+    app.use('/message/', routes.messageRoutes);
 
     app.all('*', (req, res) => {
         res.status(404).json({

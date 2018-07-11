@@ -2,7 +2,7 @@ let subscriptions = {
     loginUser: [],
     logoutUser: [],
     notification: [],
-    getData: []
+    readMessage: []
 }
 
 export default {
@@ -10,7 +10,7 @@ export default {
         loginUser: 'loginUser',
         logoutUser: 'logoutUser',
         notification: 'notification',
-        getData: 'getData'
+        readMessage: 'readMessage'
     },
     subscribe: (eventName, fn) =>
         subscriptions[eventName].push(fn),

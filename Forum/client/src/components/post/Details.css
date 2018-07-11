@@ -1,9 +1,33 @@
 .post-details, .comment-details {
-    background: #A8C1C8;
+    background: #325b61;
     display: block;
     border: 1px solid gray;
     overflow: auto;
     margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.comment-details {
+    background: rgb(5, 107, 107);    
+}
+
+.send-message {
+    display: block;
+    clear: both;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid gray;
+}
+
+.send-message:hover {
+    cursor: pointer;
+    text-decoration: none;
+    background: white;
+    color: #325b61;
 }
 
 .creator {
@@ -22,5 +46,5 @@
     text-align: right;
     font-style: italic;
     margin: 0 10px 5px 0;
-    color: rgb(99, 98, 98);    
+    color: rgb(255, 255, 255, 0.7)    
 }

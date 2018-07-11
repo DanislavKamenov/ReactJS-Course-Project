@@ -12,9 +12,9 @@ const EditUser = ({id, email, name, avatar, onCancelClick, onEditSubmit}) => (
         <div className='error' data-name='name'></div>
         <label className='control-label col-sm-4' htmlFor='avatar'>Avatar Url:</label>
         <input name='avatar' id='avatar' className='form-control' type='text' value={avatar} />
-        <div className='error' data-name='avatar'></div>
-        <Button className={'btn btn-sm btn-danger'} onClick={onCancelClick} text='Cancel' />
+        <div className='error' data-name='avatar'></div>        
         <input id='submit' className='btn btn-sm btn-success' type='submit' value='Save' />
+        <Button className={'btn btn-sm btn-danger'} onClick={onCancelClick} text='Cancel' />
     </BoundForm>
 )
 

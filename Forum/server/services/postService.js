@@ -45,10 +45,10 @@ module.exports = {
                 .then(resolve)
                 .catch(reject);
         }),
-    update: (query, updatedPost, options) =>
+    update: (query, updatedEntity, options) =>
         new Promise((resolve, reject) => {
             postCrud
-                .update(query, updatedPost, options)
+                .update(query, updatedEntity, options)
                 .then(resolve)
                 .catch(reject);
         }),

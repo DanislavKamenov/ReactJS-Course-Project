@@ -47,7 +47,7 @@ function validateForm(payload) {
             message = 'Check the form for errors.'
         }
 
-        if (field === 'avatar' && !(value.endsWith('jpg') || value.endsWith('jpeg') || value.endsWith('png'))) {
+        if ((field === 'avatar' || field === 'icon') && !(value.endsWith('jpg') || value.endsWith('jpeg') || value.endsWith('png'))) {
             isFormValid = false;
             errors[field] = 'Invalid avatar format. Accepted formats are: jpg, jpeg and png';
             message = 'Check the form for errors.'

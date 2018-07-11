@@ -1,0 +1,52 @@
+.my-messages {
+    text-align: left;
+    margin: 20px;
+}
+
+.my-messages, .message-body {
+    display: inline-block;
+}
+
+.my-messages-container {
+    text-align: left;
+}
+
+.message-body {
+    background: #1a3033;
+    vertical-align: top;
+    position: relative;
+    left: 400px;
+    top: 10px;
+    height: 200px;
+    width: 400px;
+    padding: 10px 20px 10px 20px;
+    border: 1px solid gray;
+}
+
+.message-body > .creator {
+    position: relative;
+    left: 250px;
+    top: 70px;
+    text-align: right;
+    font-style: italic;
+    color: rgb(255, 255, 255, 0.7);
+}
+
+.message-body > button {
+    position: relative;
+    top: 50px;
+    right: 105px;
+}
+
+.message-creator {
+    color: white;
+    font-weight: bold;
+}
+
+.red {
+    color: red;
+}
+
+.message > p {
+    color: rgb(255, 255, 255, 0.7);
+}

@@ -3,7 +3,7 @@ import BoundForm from '../forms/BoundForm';
 import authService from '../../webModule/authService';
 
 class LoginPage extends Component {
-    onFormSubmit = (res) => {
+    onFormSubmit = (res) => {        
         authService.logIn(res);
         this.props.history.push('/categories');
     }

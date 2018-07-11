@@ -60,6 +60,38 @@ function getUser(req, res) {
         });
 }
 
+function refreshUser(req, res) {
+    const userId = req.params.userId;
+
+    userService
+        .getOne({ _id: userId })
+        .then(user => {
+            const userToSend = {
+                id: user._id,
+                email: user.email,
+                name: user.name,
+                avatar: user.avatar,
+                roleNames: user.roleNames,
+                isAdmin: user.isAdmin,
+                isSilenced: user.isSilenced,
+                isBanned: user.isBanned
+            };
+            const token = generateWebToken(userToSend);
+
+            res.status(200).json({
+                success: true,
+                token
+            });                
+        })
+        .catch(err => {
+            res.status(200).json({
+                success: false,
+                message: err.message || err
+            });
+            console.log(err);
+        });
+}
+
 function editCurrentUser(req, res) {
     const userId = req.params.userId;
     const userToUpdate = req.body;
@@ -98,7 +130,7 @@ function silenceUser(req, res) {
     const userId = req.params.userId;
     const isSilenced = req.body.isSilenced;
 
-    userService.update({ _id: userId }, {isSilenced: isSilenced}, { new: true })
+    userService.update({ _id: userId }, { isSilenced: isSilenced }, { new: true })
         .then(newUser => {
             const userToSend = {
                 id: newUser._id,
@@ -130,7 +162,7 @@ function banUser(req, res) {
     const userId = req.params.userId;
     const isBanned = req.body.isBanned;
 
-    userService.update({ _id: userId }, {isBanned: isBanned}, { new: true })
+    userService.update({ _id: userId }, { isBanned: isBanned }, { new: true })
         .then(newUser => {
             const userToSend = {
                 id: newUser._id,
@@ -161,6 +193,7 @@ function banUser(req, res) {
 router
     .get('/', getAllUsers)
     .get('/:userId', getUser)
+    .get('/:userId/token', refreshUser)
     .post('/currentUser/:userId', editCurrentUser)
     .post('/silence/:userId', silenceUser)
     .post('/ban/:userId', banUser);

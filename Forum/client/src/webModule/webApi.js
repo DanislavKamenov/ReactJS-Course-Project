@@ -64,11 +64,15 @@ export default {
                 .catch(reject);
         });
     },
-    handleFetchError: (err) => {
-        let data = {
-            message: 'Whoops... Something went wrong.'
+    handleFetchError: (err) => {        
+        if (err) {
+            if (!err.message.endsWith('does not exist!')) {
+                let data = {
+                    message: err.message || 'Whoops... Something went wrong.'
+                }
+                observer.trigger(observer.events.notification, data);
+                console.log(err);
+            }
         }
-        observer.trigger(observer.events.notification, data);
-        console.log(err);
     }
 }

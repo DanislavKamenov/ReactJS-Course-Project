@@ -21,7 +21,7 @@ function getSingleCategory(req, res) {
     const catId = req.params.id;
     const populate = [{
         path: 'posts',
-        model: 'Post',        
+        model: 'Post',
     }, {
         path: 'posts',
         populate: {
@@ -56,7 +56,30 @@ function getSingleCategory(req, res) {
         });
 }
 
-router.get('/all', getCategories)
-    .get('/:id', getSingleCategory);
+function createCategory(req, res) {
+    const category = req.body;
+
+    categoryService
+        .create(category)
+        .then(category => {
+            res.status(200).json({
+                success: true,
+                category,
+                message: 'Category created'
+            });
+        })
+        .catch(err => {
+            res.status(200).json({
+                success: false,
+                message: err.message || err
+            });
+            console.log(err);
+        });
+}
+
+router
+    .get('/all', getCategories)
+    .get('/:id', getSingleCategory)
+    .post('/', createCategory)
 
 module.exports = router;

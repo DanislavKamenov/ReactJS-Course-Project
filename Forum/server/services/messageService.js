@@ -1,42 +1,50 @@
-const Category = require('../models/Category');
+const Message = require('../models/Message');
 const crud = require('../infrastructure/crud');
 
-const categoryCrug = crud(Category);
+const messageCrud = crud(Message);
 
 module.exports = {
-    create: map => 
+    create: (newUser) =>
         new Promise((resolve, reject) => {
-            categoryCrug
-                .create(map)
+            messageCrud
+                .create(newUser)
                 .then(resolve)
                 .catch(reject);
         }),
-    getAll: (options, populate) => 
+    getAll: (options, populate) =>
         new Promise((resolve, reject) => {
-            categoryCrug
+            messageCrud
                 .getAll(options, populate)
                 .then(resolve)
                 .catch(reject);
         }),
-    get: (query, options, populate) => 
+    get: (query, options, populate) =>
         new Promise((resolve, reject) => {
-            categoryCrug
+            messageCrud
                 .get(query, options, populate)
                 .then(resolve)
                 .catch(reject);
         }),
-    getOne: (query, options, populate) => 
+    getOne: (query, options, populate) =>
         new Promise((resolve, reject) => {
-            categoryCrug
+            messageCrud
                 .getOne(query, options, populate)
                 .then(resolve)
                 .catch(reject);
         }),
-    update: (query, updatedEntity, options) => 
+    update: (query, updatedEntity, options) =>
         new Promise((resolve, reject) => {
-            categoryCrug
+            messageCrud
                 .update(query, updatedEntity, options)
                 .then(resolve)
                 .catch(reject);
-        })
+        }),
+    removeOne: (query, options) => 
+        new Promise((resolve, reject) =>
+            messageCrud
+                .removeOne(query, options)
+                .then(resolve)
+                .catch(reject)
+        )
+    
 };

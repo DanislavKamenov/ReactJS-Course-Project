@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import webApi from '../../webModule/webApi';
 import './CategoriesPage.css'
 import { Link } from 'react-router-dom';
+import authService from '../../webModule/authService';
 
 class CategoriesPage extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class CategoriesPage extends Component {
 
     render() {
         const categories = this.state.categories.map(c => (
-            <div key={c._id} className="card" style={{width: '18rem', height: '16rem'}}>
+            <div key={c._id} className="card" style={{ width: '18rem', height: '16rem' }}>
                 <img className="card-img-top" src={c.icon} alt="Card" />
                 <div className="card-body">
                     <h5 className="card-title">{c.name}</h5>
@@ -37,6 +38,10 @@ class CategoriesPage extends Component {
         return (
             <main className='page categories-page'>
                 {categories}
+                {authService.getProfile().isAdmin && 
+                <div className='create-category-button'>
+                    <Link to='/categories/create' className='btn btn-success'>Create a category</Link>
+                </div>}
             </main>
         )
     }

@@ -48,7 +48,7 @@ class AdminPanel extends Component {
             <PanelRow key={u.id} {...u} idx={idx} onBanClick={this.onBanClick} onSilenceClick={this.onSilenceClick} />
         );
         return (
-            <div className='admin-panel'>
+            <div className='page admin-panel'>
                 <table className="table">
                     <thead>
                         <tr>

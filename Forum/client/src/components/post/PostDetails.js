@@ -3,6 +3,7 @@ import helperService from '../../infrastructure/helperService';
 import authService from '../../webModule/authService';
 import Button from './../buttons/Button';
 import BoundForm from '../forms/BoundForm';
+import { Link } from 'react-router-dom';
 
 class PostDetails extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class PostDetails extends Component {
     }
 
     render() {
-        const { _id, title, creator, content, createdOn, deletePost } = this.props;
+        const {title, creator, content, createdOn, deletePost } = this.props;
         const user = authService.getProfile();
 
         return (
@@ -32,14 +33,15 @@ class PostDetails extends Component {
                 <div className="creator">
                     <h5>{creator.name}</h5>
                     <img className="avatar" src={creator.avatar} alt="Avatar" />
+                    <Link className='send-message' to={`/message/${creator.name}/${creator._id}`}>Send a message</Link>
                 </div>
                 <div className="details-body">
                     {this.state.isInEdit ?
-                        <BoundForm onSubmit={this.onEditSubmit} endPoint={`post/${_id}`} >
+                        <BoundForm onSubmit={this.onEditSubmit} endPoint={`post/${creator._id}`} >
                             <textarea name='content' id='content' className='form-control' value={content} type='text' />
-                            <div className='error' data-name='content'></div>
-                            <Button className={'btn btn-sm btn-danger'} onClick={this.onEditClick} text='Cancel' />
+                            <div className='error' data-name='content'></div>                            
                             <input id='submit' className='btn btn-sm btn-success' type='submit' value='Save' />
+                            <Button className={'btn btn-sm btn-danger'} onClick={this.onEditClick} text='Cancel' />
                         </BoundForm> : <p className="content">{content}</p>}
                 </div>
                 <div className="details-footer">

@@ -73,7 +73,7 @@ function getPostsInCategory(req, res) {
     }];
 
     postService.
-        get({category: categoryId}, null, populate)
+        get({category: categoryId}, {sort: '-createdOn'}, populate)
         .then(posts => {
             res.status(200).json({
                 success: true,                

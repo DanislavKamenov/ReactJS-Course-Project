@@ -15,7 +15,7 @@ class Notification extends Component {
 
     showNotification = (data) => {
         const type = data.success ? 'info' : 'error';
-        const message = data.message;       
+        const message = data.message;
 
         this.setState({
             type,
@@ -29,14 +29,14 @@ class Notification extends Component {
         console.log('cleared');
     }
 
-    render = () =>
-        this.state.type && (
-            <div id="notifications">
-                <div id={`${this.state.type}Box`} onClick={this.clearNotification} className="notification">
-                    <span>{this.state.message}</span>
-                </div>
+    render = () => this.state.type && (
+        <div id="notifications">
+            <div id={`${this.state.type}Box`} onClick={this.clearNotification} className="notification">
+                <span>{this.state.message}</span>
             </div>
-        );
+        </div>
+    );
 }
+
 
 export default Notification;

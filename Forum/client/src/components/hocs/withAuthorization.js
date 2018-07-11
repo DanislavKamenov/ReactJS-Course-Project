@@ -1,6 +1,7 @@
 import React from 'react';
 import authService from '../../webModule/authService';
-import Unauthorized from '../common/Unauthorized';
+import observer from '../../infrastructure/observer';
+import { Redirect } from 'react-router-dom';
 
 const withAuthorization = (WrappedComponent, role) => (props) => {
     let isAuthorized;
@@ -17,7 +18,13 @@ const withAuthorization = (WrappedComponent, role) => (props) => {
             break;
     }
 
-    return isAuthorized ? <WrappedComponent {...props} /> : <Unauthorized />
+    if (isAuthorized) {
+        return <WrappedComponent {...props} />;
+    } else {
+        const data = {success: false, message: 'You are not authorized to view this page.'}
+        observer.trigger(observer.events.notification, data);
+        return <Redirect to='/' />;
+    }
 }
 
 export default withAuthorization;
