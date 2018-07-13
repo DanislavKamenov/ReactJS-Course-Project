@@ -11,3 +11,7 @@ label, input[type=submit], h1 {
     text-transform: uppercase;
     font-weight: 900;
 }
+
+#user-radio, #admin-radio {
+    display: inline-block;
+}

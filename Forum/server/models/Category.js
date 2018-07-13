@@ -5,7 +5,7 @@ const categorySchema = mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         required: true,
     },
-    icon:{
+    icon: {
         type: String,
         required: true
     },
@@ -17,15 +17,19 @@ const categorySchema = mongoose.Schema({
         type: String,
         required: true
     },
+    editAccess: {
+        type: String,
+        default: 'User'
+    },
     posts: [{
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'Post',
-        default: []  
+        default: []
     }],
     createdOn: {
         type: Date,
         default: Date.now
-    }    
+    }
 });
 
 const Category = mongoose.model('Category', categorySchema);

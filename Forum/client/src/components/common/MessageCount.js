@@ -31,7 +31,7 @@ class MesssageCount extends Component {
     }
 
     componentWillUnmount = () => {
-        clearInterval(this.state.intervalid);
+        clearInterval(this.state.intervalId);
     }
 
     render = () => this.state.count > 0 && <span className="unread">{this.state.count}</span>;

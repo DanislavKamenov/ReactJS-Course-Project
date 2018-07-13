@@ -33,11 +33,11 @@ class Comment extends Component {
                 <div className="creator">
                     <h5>{creator.name}</h5>
                     <img className="avatar" src={creator.avatar} alt="Avatar" />
-                    <Link className='send-message' to={`/message/${creator.name}/${creator._id}`}>Send a message</Link>
+                    {authService.loggedIn() && <Link className='send-message' to={`/message/${creator.name}/${creator._id}`}>Send a message</Link>}
                 </div>
                 <div className="details-body">
                     {this.state.isInEdit ?
-                        <BoundForm onSubmit={this.onEditSubmit} endPoint={`comment/${creator._id}/edit`} >
+                        <BoundForm onSubmit={this.onEditSubmit} endPoint={`comment/${_id}/edit`} >
                             <textarea name='content' id='content' className='form-control' value={content} type='text' />
                             <div className='error' data-name='content'></div>                            
                             <input id='submit' className='btn btn-sm btn-success' type='submit' value='Save' />

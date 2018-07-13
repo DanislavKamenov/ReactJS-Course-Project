@@ -54,7 +54,7 @@ class MyMessagesPage extends Component {
         webApi
             .delete(`message/${messageId}`)
             .then(res => {
-                this.getMyMessages(res);
+                this.getMyMessages();
                 this.setState({ singleMessage: '' });
             })
             .catch(webApi.handleFetchError);

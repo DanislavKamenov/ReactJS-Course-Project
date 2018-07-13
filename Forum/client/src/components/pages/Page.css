@@ -2,6 +2,7 @@
     background:rgb(33, 62, 66);
     color: white;
     min-height: 80vh;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -13,22 +14,62 @@
     float: right;
 }
 
+header {
+    background: #1a3033;
+    height: 65px;
+}
+
+.navbar-container {
+    background: #1a3033;
+    overflow: visible;
+}
+
 .navbar {
     background: rgb(26, 48, 51);    
 }
 
+.navbar-left {
+    float: left;
+}
+
 .navbar-right {
+    line-height: 20px;
     float: right;
-    position: absolute;
-    right: 50px;
-    top: 60px;
-    border: 1px solid gray;
+    vertical-align: top;
+    position: relative;
+    right: 30px;
     color: white;
-    margin-left: 20px;
-    margin-right: 5px;
-    margin-top: 15px;
-    text-align: left;
     z-index: 1;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown li:first-child {
+    width: 200px;
+}
+
+.plus {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dropdown-content {
+    text-align: left;
+    background: #1a3033;
+    border: 1px solid gray;
+    display: none;
+    position: absolute;
+    right: -17px;
+    min-width: 140;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 .avatar {

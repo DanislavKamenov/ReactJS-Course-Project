@@ -3,8 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 import LogoutLink from './LogoutLink';
 import MesssageCount from './MessageCount';
 
-const AuthNav = ({ user, match }) => (
-    <div>
+const AuthNav = ({ user  }) => (
+    <div className='navbar-container'>
         <nav className="navbar navbar-expand-lg navbar-dark navbar-left">
             <div>
                 <ul className="navbar-nav mr-auto">
@@ -19,12 +19,11 @@ const AuthNav = ({ user, match }) => (
             </div>
         </nav>
         <nav className="navbar navbar-dark navbar-right">
-            <div className='user-nav'>
-                <ul className="navbar-nav">
-                    <li className="nav-item active">
-                        Welcome:
-                    <Link className="nav-link" to="/">{user.name} <span className="sr-only">(current)</span></Link>
-                    </li>
+            <ul className="navbar-nav dropdown">
+                <li className="nav-item active">                   
+                    <Link className="nav-link" to="/">{ 'Welcome: ' + user.name}<span className='plus'> +</span> <span className="sr-only">(current)</span></Link>
+                </li>
+                <div className='dropdown-content'>
                     <li className="nav-item">
                         <Link className="nav-link" to={`/user/${user.name}`}>View Profile<span></span></Link>
                     </li>
@@ -39,8 +38,8 @@ const AuthNav = ({ user, match }) => (
                     <li className="nav-item">
                         <LogoutLink />
                     </li>
-                </ul>
-            </div>
+                </div>
+            </ul>
         </nav>
     </div>
 

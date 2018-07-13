@@ -3,6 +3,7 @@ import webApi from '../../webModule/webApi';
 import './CategoriesPage.css'
 import { Link } from 'react-router-dom';
 import authService from '../../webModule/authService';
+import withAuthorization from '../hocs/withAuthorization';
 
 class CategoriesPage extends Component {
     constructor(props) {
@@ -47,4 +48,4 @@ class CategoriesPage extends Component {
     }
 }
 
-export default CategoriesPage;
+export default withAuthorization(CategoriesPage);

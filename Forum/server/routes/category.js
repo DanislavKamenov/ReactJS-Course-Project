@@ -18,7 +18,8 @@ function getCategories(req, res) {
 }
 
 function getSingleCategory(req, res) {
-    const catId = req.params.id;
+    //changed from catId to cat or post id. Confirm it works.
+    const id = req.params.id;
     const populate = [{
         path: 'posts',
         model: 'Post',
@@ -40,7 +41,7 @@ function getSingleCategory(req, res) {
     }];
 
     categoryService
-        .getOne({ _id: catId }, null, populate)
+        .getOne({$or: [{ _id: id }, {posts: id}]}, null, populate)
         .then(category => {
             res.status(200).json({
                 success: true,

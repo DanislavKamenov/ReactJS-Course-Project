@@ -24,7 +24,7 @@ class PostDetails extends Component {
     }
 
     render() {
-        const {title, creator, content, createdOn, deletePost } = this.props;
+        const {_id, title, creator, content, createdOn, deletePost } = this.props;
         const user = authService.getProfile();
 
         return (
@@ -33,11 +33,11 @@ class PostDetails extends Component {
                 <div className="creator">
                     <h5>{creator.name}</h5>
                     <img className="avatar" src={creator.avatar} alt="Avatar" />
-                    <Link className='send-message' to={`/message/${creator.name}/${creator._id}`}>Send a message</Link>
+                    {authService.loggedIn() && <Link className='send-message' to={`/message/${creator.name}/${creator._id}`}>Send a message</Link>}
                 </div>
                 <div className="details-body">
                     {this.state.isInEdit ?
-                        <BoundForm onSubmit={this.onEditSubmit} endPoint={`post/${creator._id}`} >
+                        <BoundForm onSubmit={this.onEditSubmit} endPoint={`post/${_id}`} >
                             <textarea name='content' id='content' className='form-control' value={content} type='text' />
                             <div className='error' data-name='content'></div>                            
                             <input id='submit' className='btn btn-sm btn-success' type='submit' value='Save' />

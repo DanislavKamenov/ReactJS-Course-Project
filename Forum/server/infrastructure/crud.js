@@ -12,11 +12,11 @@ module.exports = (Model) => {
         getAll: (options, populate) => {
             return new Promise((resolve, reject) => {
                 let callback = (existingEntitiesArr) => {
-                    if (existingEntitiesArr.length === 0) {
-                        let message = `${modelName} does not exist!`;
-                        console.log(message);
-                        return reject({ message });
-                    }
+                    // if (existingEntitiesArr.length === 0) {
+                    //     let message = `${modelName} does not exist!`;
+                    //     console.log(message);
+                    //     return reject({ message });
+                    // }
 
                     resolve(existingEntitiesArr);
                 };                
@@ -38,11 +38,11 @@ module.exports = (Model) => {
         get: (query, options, populate) => {
             return new Promise((resolve, reject) => {
                 let callback = (existingEntitiesArr) => {
-                    if (existingEntitiesArr.length === 0) {
-                        let message = `${modelName} does not exist!`;
-                        console.log(message);
-                        return reject({ message });
-                    }
+                    // if (existingEntitiesArr.length === 0) {
+                    //     let message = `${modelName} does not exist!`;
+                    //     console.log(message);
+                    //     return reject({ message });
+                    // }
 
                     resolve(existingEntitiesArr);
                 };                

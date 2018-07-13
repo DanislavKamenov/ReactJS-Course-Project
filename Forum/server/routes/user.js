@@ -60,6 +60,26 @@ function getUser(req, res) {
         });
 }
 
+function removeUser(req, res) {
+    const userId = req.params.userId;
+
+    userService
+        .removeOne({_id: userId})
+        .then(oldUser => {
+            res.status(200).json({
+                success: true,
+                message: 'User Deleted'
+            });
+        })
+        .catch(err => {
+            res.status(200).json({
+                success: false,
+                message: err.message || err
+            });
+            console.log(err);
+        });        
+}
+
 function refreshUser(req, res) {
     const userId = req.params.userId;
 
@@ -193,6 +213,7 @@ function banUser(req, res) {
 router
     .get('/', getAllUsers)
     .get('/:userId', getUser)
+    .delete('/:userId', removeUser)
     .get('/:userId/token', refreshUser)
     .post('/currentUser/:userId', editCurrentUser)
     .post('/silence/:userId', silenceUser)

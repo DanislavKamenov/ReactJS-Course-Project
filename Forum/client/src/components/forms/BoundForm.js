@@ -48,8 +48,8 @@ class BoundForm extends Component {
                     <form className={'form'} onSubmit={this.handleSubmit}>
                         <fieldset>
                             {/* <div className='error'>{this.props.message}</div> */}
-                            {Children.map(this.props.children, child => {
-                                if (shouldHaveState(child)) {
+                            {Children.map(this.props.children, child => {                                 
+                                if (shouldHaveState(child)) {                                   
                                     const { value, ...childProps } = child.props;
                                     return <child.type onChange={this.handleChange} value={this.state[child.props.name]} {...childProps} />
                                 }

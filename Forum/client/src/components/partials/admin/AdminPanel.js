@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PanelRow from './PanelRow';
 import webApi from '../../../webModule/webApi';
 import withAuthorization from './../../hocs/withAuthorization';
+import './AdminPanel.css';
 
 class AdminPanel extends Component {
     constructor(props) {
@@ -43,9 +44,25 @@ class AdminPanel extends Component {
             .catch(webApi.handleFetchError);
     }
 
+    onDestroyClick = (e) => {
+        const userId = e.target.dataset.id;
+        const position = this.state.users.findIndex(u => u.id === userId);        
+
+        webApi
+            .delete(`user/${userId}`)
+            .then(() => this.setState(prevState => prevState.users.splice(position, 1)))
+            .catch(webApi.handleFetchError);
+    }
+
     render() {
         const PanelRows = this.state.users.map((u, idx) =>
-            <PanelRow key={u.id} {...u} idx={idx} onBanClick={this.onBanClick} onSilenceClick={this.onSilenceClick} />
+            <PanelRow
+                key={u.id} {...u}
+                idx={idx}
+                onBanClick={this.onBanClick}
+                onSilenceClick={this.onSilenceClick}
+                onDestroyClick={this.onDestroyClick}
+            />
         );
         return (
             <div className='page admin-panel'>

@@ -1,0 +1,9 @@
+.page-link {
+    color: white;
+    background: #213e42;
+}
+
+.disabled {
+    opacity: 0.4;
+    background: red;
+}

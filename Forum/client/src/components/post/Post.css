@@ -1,7 +1,11 @@
+.post-container {
+    margin-top: 150px;
+}
+
 .post {
     overflow: auto;
     background: rgb(26, 48, 51);
-    margin: 180px 15px 15px 15px;
+    margin: 15px 15px 15px 15px;
     position: relative;
     border-top: 2px solid gray;
     border-bottom: 2px solid gray;

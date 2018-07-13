@@ -21,11 +21,16 @@ module.exports = {
                         .create(admin)
                         .then((user) => {
                             console.log('Admin seeded!');
-                            let categories = [{ creator: user._id, name: 'General Discussion', icon: 'https://static.memrise.com/uploads/things/images/37546163_140818_1021_49.png', description: 'Discuss interesting topics with other users.'},
-                                { creator: user._id, name: 'Support', icon: 'https://t3.ftcdn.net/jpg/00/30/80/68/500_F_30806890_7RjFFHE5clHmDURkzU1aaQSifqgDQwLN.jpg', description: 'Get help from our staff.'},
-                                { creator: user._id, name: 'News', icon: 'https://cdn4.iconfinder.com/data/icons/academic-disciplines-color-sticker/64/current-events-512.png', description: 'Daily news from our moderators.' }];
+                            let categories = [
+                                { creator: user._id, name: 'News', icon: 'https://cdn4.iconfinder.com/data/icons/academic-disciplines-color-sticker/64/current-events-512.png', description: 'Daily news from our moderators.', editAccess: 'Admin' },
+                                { creator: user._id, name: 'General Discussion', icon: 'https://static.memrise.com/uploads/things/images/37546163_140818_1021_49.png', description: 'Discuss interesting topics with other users.' },
+                                { creator: user._id, name: 'Support', icon: 'https://t3.ftcdn.net/jpg/00/30/80/68/500_F_30806890_7RjFFHE5clHmDURkzU1aaQSifqgDQwLN.jpg', description: 'Get help from our staff.' },
+                            ];
                             categoryService.create(categories)
-                                .then(categories => resolve(user))
+                                .then(categories => {
+                                    console.log('Categories seeded!');
+                                    resolve(user);
+                                })
                                 .catch(reject);
 
                         }).catch(err => {

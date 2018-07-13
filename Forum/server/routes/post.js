@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const postService = require('../services/postService');
+const Post = require('../models/Post');
 
 
 function getPost(req, res) {
@@ -19,8 +20,7 @@ function getPost(req, res) {
 
     }, {
         path: 'comments',
-        model: 'Comment',
-
+        model: 'Comment'       
     }, {
         path: 'comments',
         populate: {
@@ -34,7 +34,7 @@ function getPost(req, res) {
                 isAdmin: '1',
                 isSilenced: '1',
                 isBanned: '1'
-            }
+            },            
         }
     }];
 
@@ -42,7 +42,7 @@ function getPost(req, res) {
         .getOne({ _id: postId }, null, populate)
         .then(post => {
             res.status(200).json({
-                success: true,                
+                success: true,
                 post
             });
         })
@@ -57,6 +57,9 @@ function getPost(req, res) {
 
 function getPostsInCategory(req, res) {
     const categoryId = req.params.categoryId;
+    const pageNum = +req.params.pageNum;
+    const pageLimit = +req.params.pageLimit;
+    const skipVal = (pageNum - 1) * pageLimit;
     const populate = [{
         path: 'creator',
         model: 'User',
@@ -72,13 +75,26 @@ function getPostsInCategory(req, res) {
 
     }];
 
-    postService.
-        get({category: categoryId}, {sort: '-createdOn'}, populate)
-        .then(posts => {
-            res.status(200).json({
-                success: true,                
-                posts
-            });
+    Post
+        .find({ category: categoryId })
+        .count()
+        .then(count => {
+            postService.
+                get({ category: categoryId }, { sort: '-createdOn', $count: 'totalCount', skip: skipVal, limit: pageLimit }, populate)
+                .then((posts) => {                   
+                    res.status(200).json({
+                        success: true,
+                        posts,
+                        size: count
+                    });
+                })
+                .catch(err => {
+                    res.status(200).json({
+                        success: false,
+                        message: err.message || err
+                    });
+                    console.log(err);
+                });
         })
         .catch(err => {
             res.status(200).json({
@@ -86,7 +102,7 @@ function getPostsInCategory(req, res) {
                 message: err.message || err
             });
             console.log(err);
-        });
+        });    
 }
 
 function editPost(req, res) {
@@ -94,12 +110,12 @@ function editPost(req, res) {
     const content = req.body.content;
 
     postService
-        .update({_id: postId}, {content}, {new: true})
+        .update({ _id: postId }, { content }, { new: true })
         .then((newPost) => {
             res.status(200).json({
-                success: true,  
+                success: true,
                 message: 'Post Edited.',
-                newPost              
+                newPost
             });
         })
         .catch(err => {
@@ -115,12 +131,12 @@ function deletePost(req, res) {
     const postId = req.params.id;
 
     postService
-        .removeOne({_id: postId})
+        .removeOne({ _id: postId })
         .then((deletedPost) => {
             res.status(200).json({
                 success: true,
                 message: 'Post deleted.',
-                deletedPost              
+                deletedPost
             });
         })
         .catch(err => {
@@ -165,7 +181,7 @@ function createPost(req, res) {
 
 router
     .get('/:id', getPost)
-    .get('/all/:categoryId', getPostsInCategory)
+    .get('/all/:categoryId/:pageNum/:pageLimit', getPostsInCategory)
     .post('/:id', editPost)
     .delete('/:id', deletePost)
     .post('/category/:categoryId/', createPost);

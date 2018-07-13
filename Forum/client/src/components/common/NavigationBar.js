@@ -46,7 +46,7 @@ class NavigationBar extends Component {
         clearInterval(this.state.intervalid);
     }
 
-    render = () => this.state.isLoggedIn ? <AuthNav user={this.state.user} {...this.props} /> : <UnauthNav />;
+    render = () => <header>{ this.state.isLoggedIn ? <AuthNav user={this.state.user} {...this.props} /> : <UnauthNav />}</header>
 }
 
 export default NavigationBar

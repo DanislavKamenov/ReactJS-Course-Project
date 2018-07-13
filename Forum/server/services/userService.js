@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 const crud = require('../infrastructure/crud');
 
 const userCrud = crud(User);
@@ -39,12 +41,22 @@ module.exports = {
                 .then(resolve)
                 .catch(reject);
         }),
-    removeOne: (query, options) => {
-        new Promise((resolve, reject) =>
-            userCrud
-                .removeOne(query, options)
-                .then(resolve)
+    removeOne: (query) => {
+        return new Promise((resolve, reject) => {
+            Comment
+                .deleteMany({ creator: query._id })
+                .then(commentDeleteData =>
+                    Post
+                        .deleteMany({ creator: query._id })
+                )
                 .catch(reject)
+                .then(postDeleteData =>
+                    userCrud.removeOne(query)
+                        .then(resolve)
+                        .catch(reject)
+                )
+                .catch(reject);
+        }
         );
     }
 };
