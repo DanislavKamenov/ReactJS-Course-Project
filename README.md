@@ -8,6 +8,13 @@ Its core features include:
 - private messaging between users;
 - moderation features including: category access restriction, user bans and complete removal of users.
 
+The goal of the project is show the core concepts of building an application with React.
+In this project I've used:
+- Regular React Components;
+- Higher Order Components;
+- React state;
+- Observer for managing login, logout and notification state;
+- Custom services with helper functions.
 
 ### Prerequisites
 
