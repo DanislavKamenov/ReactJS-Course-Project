@@ -5,8 +5,7 @@ import observer from '../../infrastructure/observer';
 class HomePage extends Component {
     constructor(props) {
         super(props);
-        this.state = { user: 'Guest' };
-        //Resubcribes on every logout
+        this.state = { user: 'Guest' };        
         observer.subscribe(observer.events.logoutUser, this.checkUser);
     }
 

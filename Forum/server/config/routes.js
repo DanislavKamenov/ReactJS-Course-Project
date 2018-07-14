@@ -1,5 +1,4 @@
 const routes = require('../routes/');
-const auth = require('../config/auth');
 
 module.exports = (app) => {
     app.use('/auth/', routes.authRoutes);

@@ -92,6 +92,6 @@ router
     .get('/:recepientId', getMessages)
     .post('/:recepientId', createMessage)    
     .post('/:messageId/edit', editMessage)
-    .delete('/:messageId', deleteMessage)
+    .delete('/:messageId', deleteMessage);
 
 module.exports = router;

@@ -81,6 +81,6 @@ function createCategory(req, res) {
 router
     .get('/all', getCategories)
     .get('/:id', getSingleCategory)
-    .post('/', createCategory)
+    .post('/', createCategory);
 
 module.exports = router;

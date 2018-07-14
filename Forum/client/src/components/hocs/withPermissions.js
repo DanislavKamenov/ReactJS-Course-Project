@@ -31,10 +31,6 @@ const withPermissions = (WrappedComponent) => class withPermissions extends Comp
             return false;
         }
 
-        if (user.isSilenced) {
-            canAccess = false;
-        }
-
         if (!user.roleNames.includes(this.state.category.editAccess)) {
             canAccess = false;
         }
