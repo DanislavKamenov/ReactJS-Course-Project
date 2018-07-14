@@ -1,6 +1,8 @@
 const Role = require('../models/Role');
 const User = require('../models/User');
 const categoryService = require('../services/categoryService');
+const PostService = require('../services/postService');
+const commentService = require('../services/commentService');
 
 module.exports = {
     seedRolesAndAdmin: () => {
@@ -29,7 +31,32 @@ module.exports = {
                             categoryService.create(categories)
                                 .then(categories => {
                                     console.log('Categories seeded!');
-                                    resolve(user);
+                                    const newsPosts = [{
+                                        creator: user._id,
+                                        category: categories[0]._id,
+                                        title: 'Weather Report',
+                                        content: 'The weather will be sunny this week.',
+                                    },
+                                    {
+                                        creator: user._id,
+                                        category: categories[0]._id,
+                                        title: 'World Events',
+                                        content: 'USA bombing the middle east. Trying to steal oil.',
+                                    }];
+                                    const generalPost = {
+                                        creator: user._id,
+                                        category: categories[1]._id,
+                                        title: 'World Cup',
+                                        content: 'Who\'s watching the Worl Cup? Share your thoughts.'
+                                    }
+
+                                    Promise.all([PostService.create(newsPosts[0], categories[0]._id), PostService.create(newsPosts[1], categories[0]._id), PostService.create(generalPost, categories[1]._id)])
+                                        .then(() => {
+                                            console.log('News seeded!');
+                                            resolve(user);
+                                        })
+                                        .catch(reject);
+
                                 })
                                 .catch(reject);
 
@@ -43,24 +70,56 @@ module.exports = {
 
         });
     },
-    seedUser(email, name, pwd, newRoles) {
-        Role.find({ name: { $in: newRoles } })
-            .then(roles => {
-                let normalUser = {
-                    email: email,
-                    name: name,
-                    password: pwd,
-                    roles: roles.map(r => r._id)
-                };
+    seedUser(email, name, pwd, newRoles, avatar) {
+        return new Promise((resolve, reject) => {
+            Role.find({ name: { $in: newRoles } })
+                .then(roles => {
+                    let normalUser = {
+                        email: email,
+                        name: name,
+                        password: pwd,
+                        avatar,
+                        roles: roles.map(r => r._id)
+                    };
 
-                User
-                    .create(normalUser)
-                    .then((user) => {
-                        console.log(`${user.name} seeded!`);
-                    }).catch(err => {
-                        console.log(err);
-                    });
+                    User
+                        .create(normalUser)
+                        .then((user) => {
+                            console.log(`${user.name} seeded!`);
+                            resolve(user);
+                        }).catch(err => {
+                            console.log(err);
+                            reject(err);
+                        });
 
-            });
+                });
+        });
+    },
+    seedPost(category, post) {
+        return new Promise((resolve, reject) => {
+            categoryService
+                .getOne({ name: category })
+                .then(category => {
+                    post.category = category._id;
+                    PostService
+                        .create(post, category._id)
+                        .then(resolve)
+                        .catch(err => {
+                            console.log(err);
+                            reject(err);
+                        });
+                });
+        });
+    },
+    seedComment(postId, comment) {
+        return new Promise((resolve, reject) => {
+            commentService
+                .create(comment, postId)
+                .then(resolve)
+                .catch(err => {
+                    console.log(err);
+                    reject(err);
+                });
+        });
     }
 };

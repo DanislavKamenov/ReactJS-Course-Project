@@ -34,8 +34,8 @@ class ViewPostsPage extends Component {
 
     addPost = (res) => {
         this.setState((prevState) => {
-            prevState.posts.unshift(res.post); 
-            prevState.collectionSize++;      
+            prevState.posts.unshift(res.post);
+            prevState.collectionSize++;
             if (prevState.posts.length > prevState.limit) {
                 prevState.posts.pop();
             }
@@ -49,7 +49,7 @@ class ViewPostsPage extends Component {
 
     onPageChange = (pageNum) => {
         this.getPosts(pageNum);
-        this.setState({activePage: pageNum});
+        this.setState({ activePage: pageNum });
     }
 
     render() {
@@ -58,7 +58,13 @@ class ViewPostsPage extends Component {
             <main className='page view-posts-page'>
                 {this.props.canAccess && <Button className={'btn btn-sm btn-success'} onClick={this.onButtonClick} text='Create A Post' disabled={user.isSilenced} />}
                 {this.state.showForm && <CreatePost addPost={this.addPost} path={this.props.match.params.id} />}
-                <ViewPosts posts={this.state.posts} activePage={this.state.activePage} collectionSize={this.state.collectionSize} limit={this.state.limit} onPageChange={this.onPageChange} />
+                <ViewPosts
+                    posts={this.state.posts}
+                    activePage={this.state.activePage}
+                    collectionSize={this.state.collectionSize}
+                    limit={this.state.limit}
+                    onPageChange={this.onPageChange}
+                />
             </main>
         );
     }

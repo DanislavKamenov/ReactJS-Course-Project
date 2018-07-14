@@ -4,6 +4,7 @@ import AuthNav from './AuthNav';
 import authService from '../../webModule/authService';
 import observer from '../../infrastructure/observer';
 import webApi from '../../webModule/webApi';
+import './NavigationBar.css';
 
 class NavigationBar extends Component {
     constructor(props) {
@@ -38,7 +39,7 @@ class NavigationBar extends Component {
 
     componentDidMount = () => {  
         this.setNavigation();      
-        let intervalId = setInterval(this.refreshUser, 60000);
+        let intervalId = setInterval(this.refreshUser, 10000);
         this.setState({ intervalId })
     }
 
@@ -49,4 +50,4 @@ class NavigationBar extends Component {
     render = () => <header>{ this.state.isLoggedIn ? <AuthNav user={this.state.user} {...this.props} /> : <UnauthNav />}</header>
 }
 
-export default NavigationBar
+export default NavigationBar;

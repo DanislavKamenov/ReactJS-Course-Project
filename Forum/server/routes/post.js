@@ -20,7 +20,7 @@ function getPost(req, res) {
 
     }, {
         path: 'comments',
-        model: 'Comment'       
+        model: 'Comment'
     }, {
         path: 'comments',
         populate: {
@@ -34,7 +34,7 @@ function getPost(req, res) {
                 isAdmin: '1',
                 isSilenced: '1',
                 isBanned: '1'
-            },            
+            },
         }
     }];
 
@@ -45,6 +45,74 @@ function getPost(req, res) {
                 success: true,
                 post
             });
+        })
+        .catch(err => {
+            res.status(200).json({
+                success: false,
+                message: err.message || err
+            });
+            console.log(err);
+        });
+}
+
+function getUserPosts(req, res) {
+    const userId = req.params.userId;
+    const pageNum = +req.params.pageNum;
+    const pageLimit = +req.params.pageLimit;
+    const skipVal = (pageNum - 1) * pageLimit;
+    const populate = [{
+        path: 'creator',
+        model: 'User',
+        select: {
+            _id: '1',
+            name: '1',
+            avatar: '1',
+            roleNames: '1',
+            isAdmin: '1',
+            isSilenced: '1',
+            isBanned: '1'
+        }
+
+    }, {
+        path: 'comments',
+        model: 'Comment'
+    }, {
+        path: 'comments',
+        populate: {
+            path: 'creator',
+            model: 'User',
+            select: {
+                _id: '1',
+                name: '1',
+                avatar: '1',
+                roleNames: '1',
+                isAdmin: '1',
+                isSilenced: '1',
+                isBanned: '1'
+            },
+        }
+    }];
+
+    Post
+        .find({ creator: userId })
+        .count()
+        .then(count => {
+            postService
+                .get({ creator: userId }, { sort: '-createdOn', $count: 'totalCount', skip: skipVal, limit: pageLimit }, populate)
+                .then(userPosts => {
+                    res.status(200).json({
+                        success: true,
+                        userPosts,
+                        count
+                    });
+                })
+                .catch(err => {
+                    res.status(200).json({
+                        success: false,
+                        message: err.message || err
+                    });
+                    console.log(err);
+                });
         })
         .catch(err => {
             res.status(200).json({
@@ -81,7 +149,7 @@ function getPostsInCategory(req, res) {
         .then(count => {
             postService.
                 get({ category: categoryId }, { sort: '-createdOn', $count: 'totalCount', skip: skipVal, limit: pageLimit }, populate)
-                .then((posts) => {                   
+                .then((posts) => {
                     res.status(200).json({
                         success: true,
                         posts,
@@ -102,7 +170,7 @@ function getPostsInCategory(req, res) {
                 message: err.message || err
             });
             console.log(err);
-        });    
+        });
 }
 
 function editPost(req, res) {
@@ -181,6 +249,7 @@ function createPost(req, res) {
 
 router
     .get('/:id', getPost)
+    .get('/user/:userId/:pageNum/:pageLimit', getUserPosts)
     .get('/all/:categoryId/:pageNum/:pageLimit', getPostsInCategory)
     .post('/:id', editPost)
     .delete('/:id', deletePost)

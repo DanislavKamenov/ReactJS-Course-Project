@@ -22,11 +22,15 @@ class MesssageCount extends Component {
             .catch(webApi.handleFetchError);
     }
 
-    updateCount = (res) => this.setState({count: res.privateMessages.filter(x => x.isRead === false).length})
+    updateCount = (res) => { 
+        const unreadMessagesCount = res.privateMessages.filter(x => x.isRead === false).length;
+        this.setState({count: unreadMessagesCount});
+        this.props.checkForMessages(unreadMessagesCount);
+    }
 
     componentDidMount = () => {
         this.getUnreadMessagesCount();
-        let intervalId = setInterval(this.getUnreadMessagesCount, 60000);
+        let intervalId = setInterval(this.getUnreadMessagesCount, 10000);
         this.setState({intervalId})
     }
 

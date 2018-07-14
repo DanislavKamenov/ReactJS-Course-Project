@@ -81,15 +81,19 @@ class PostDetailsPage extends Component {
     }
 
     onPageChange = (pageNum) => {
-        this.setState({activePage: pageNum});
+        this.setState({ activePage: pageNum });
     }
 
     render() {
         const user = authService.getProfile();
         const { post, hasPost, showForm, ...otherState } = this.state;
 
-        if (hasPost) {            
-            const start = this.state.collectionSize - this.state.limit * this.state.activePage + 1;
+        if (hasPost) {
+            let postsPerPage = this.state.collectionSize % this.state.limit;
+            if (postsPerPage === 0) postsPerPage = 3;            
+
+            let start = (this.state.collectionSize - this.state.limit * this.state.activePage) + (this.state.limit - postsPerPage);
+
             const end = start + this.state.limit;
             const pageComments = post.comments.slice(start, end);
 

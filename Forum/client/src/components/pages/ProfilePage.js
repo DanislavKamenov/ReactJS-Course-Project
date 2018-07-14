@@ -1,35 +1,63 @@
 import React, { Component } from 'react';
+import ViewPosts from '../post/ViewPosts';
 import withAuthorization from '../hocs/withAuthorization';
 import authService from '../../webModule/authService';
 import User from '../user/User'
+import webApi from '../../webModule/webApi';
 
 class ProfilePage extends Component {
     constructor(props) {
         super(props)
         this.state = {
             user: {},
-            isInEdit: false
+            userPosts: [],
+            isInEdit: false,
+            activePage: 1,
+            collectionSize: 0,
+            limit: 4
         }
     }
 
     componentDidMount() {
-        this.setState({user: authService.getProfile()});
+        const user = authService.getProfile();
+        this.setState({ user });
+        this.getUserPosts(this.state.pageNum, user.id);
     }
 
     onEditClick = () => {
-        this.setState({isInEdit: !this.state.isInEdit})
+        this.setState({ isInEdit: !this.state.isInEdit })
     };
 
-    onEditSubmit = (res) => {        
+    onEditSubmit = (res) => {
         authService.logIn(res);
-        this.setState({user: authService.getProfile(), isInEdit: false});
+        this.setState({ user: authService.getProfile(), isInEdit: false });
+    }
+
+    getUserPosts = (pageNum, userId) => {
+        webApi
+            .get(`post/user/${userId}/${pageNum}/${this.state.limit}`)
+            .then(res => {
+                this.setState({ userPosts: res.userPosts, collectionSize: res.count })
+            })
+            .catch(webApi.handleFetchError);
+    }
+
+    onPageChange = (pageNum) => {
+        this.getUserPosts(pageNum, this.state.user.id);
+        this.setState({ activePage: pageNum });
     }
 
     render() {
-        console.log(this.props);
         return (
-            <main className="page profile-page">                
-                <User {...this.state} onEditClick={this.onEditClick} onEditSubmit={this.onEditSubmit}/>
+            <main className="page profile-page">
+                <User {...this.state} onEditClick={this.onEditClick} onEditSubmit={this.onEditSubmit} />
+                <ViewPosts
+                    posts={this.state.userPosts}
+                    activePage={this.state.activePage}
+                    collectionSize={this.state.collectionSize}
+                    limit={this.state.limit}
+                    onPageChange={this.onPageChange}
+                />
             </main>
         );
     }

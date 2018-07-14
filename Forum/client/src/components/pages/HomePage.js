@@ -10,17 +10,22 @@ class HomePage extends Component {
         observer.subscribe(observer.events.logoutUser, this.checkUser);
     }
 
+    
+    componentDidMount = () => this.checkUser();
+
+    componentWillUnmount = () => observer.unsubscribe(observer.events.logoutUser, this.checkUser);
+
     checkUser = () => {
         this.setState({ user: authService.getProfile().name || 'Guest' });
 
     }
 
-    componentDidMount = () => this.checkUser();
-
     render() {
         return (
             <div className="page home-page">
                 <h1>Welcome {this.state.user}</h1>
+                {!authService.loggedIn() && <p>Welcome to our forum. Feel free to browse our content as a guest or register to use the full features of our website.</p>}
+                <p>Please behave yourself and enjoy your stay!</p>
             </div>
         )
     }
