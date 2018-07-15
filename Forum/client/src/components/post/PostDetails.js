@@ -14,9 +14,7 @@ class PostDetails extends Component {
         }
     }
 
-    onEditClick = () => {
-        this.setState({ isInEdit: !this.state.isInEdit });
-    }
+    onEditClick = () => this.setState({ isInEdit: !this.state.isInEdit });
 
     onEditSubmit = () => {
         this.props.editPost();

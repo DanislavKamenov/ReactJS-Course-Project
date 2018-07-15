@@ -13,12 +13,12 @@ class AdminPanel extends Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount = () =>
         webApi
             .get('user')
             .then((res) => this.setState({ users: res.users }))
-            .catch(webApi.handleFetchError)
-    }
+            .catch(webApi.handleFetchError);
+
 
     onBanClick = (e) => {
         const userId = e.target.dataset.id;
@@ -46,7 +46,7 @@ class AdminPanel extends Component {
 
     onDestroyClick = (e) => {
         const userId = e.target.dataset.id;
-        const position = this.state.users.findIndex(u => u.id === userId);        
+        const position = this.state.users.findIndex(u => u.id === userId);
 
         webApi
             .delete(`user/${userId}`)

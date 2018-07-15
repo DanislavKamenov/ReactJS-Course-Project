@@ -25,24 +25,19 @@ class PostDetailsPage extends Component {
         }
     }
 
-    componentDidMount() {
-        this.getPost();
-    }
+    componentDidMount = () => this.getPost();
 
-    getPost = () => {
+    getPost = () =>
         webApi
             .get(`post/${this.props.match.params.id}`)
             .then(res => {
                 this.setState({ post: res.post, showForm: false, hasPost: true, collectionSize: res.post.comments.length })
             })
             .catch(webApi.handleFetchError)
-    }
 
-    editPost = () => {
-        this.getPost();
-    }
+    editPost = () => this.getPost();
 
-    deletePost = () => {
+    deletePost = () =>
         webApi
             .delete(`post/${this.props.match.params.id}`)
             .then(res => {
@@ -50,19 +45,16 @@ class PostDetailsPage extends Component {
                 observer.trigger(observer.events.notification, (res))
             })
             .catch(webApi.handleFetchError)
-    }
 
-    addComment = (res) => {
+    addComment = (res) => 
         this.setState((prevState) => {
             prevState.post.comments.push(res.comment)
             prevState.collectionSize++;
             return prevState.showForm = false;
         });
-    }
+    
 
-    editComment = () => {
-        this.getPost();
-    }
+    editComment = () => this.getPost();
 
     deleteComment = (e) => {
         const commentId = e.target.dataset.id;
@@ -76,13 +68,9 @@ class PostDetailsPage extends Component {
             .catch(webApi.handleFetchError)
     }
 
-    onButtonClick = () => {
-        this.setState({ showForm: !this.state.showForm });
-    }
+    onButtonClick = () => this.setState({ showForm: !this.state.showForm });
 
-    onPageChange = (pageNum) => {
-        this.setState({ activePage: pageNum });
-    }
+    onPageChange = (pageNum) => this.setState({ activePage: pageNum });
 
     render() {
         const user = authService.getProfile();
@@ -90,7 +78,7 @@ class PostDetailsPage extends Component {
 
         if (hasPost) {
             let postsPerPage = this.state.collectionSize % this.state.limit;
-            if (postsPerPage === 0) postsPerPage = 3;            
+            if (postsPerPage === 0) postsPerPage = 3;
 
             let start = (this.state.collectionSize - this.state.limit * this.state.activePage) + (this.state.limit - postsPerPage);
 

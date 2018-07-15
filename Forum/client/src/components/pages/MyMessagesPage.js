@@ -60,16 +60,14 @@ class MyMessagesPage extends Component {
             .catch(webApi.handleFetchError);
     }
 
-    render() {
-        return (
-            <main className='page my-messages-page'>
-                <div className="my-messages-container">
-                    <MyMessages loadMessage={this.loadMessage} onLinkClick={this.onLinkClick} messages={this.state.messages} />
-                    {this.state.singleMessage && <SingleMessage {...this.state.singleMessage} onDeleteClick={this.onDeleteClick} />}
-                </div>
-            </main>
-        );
-    }
+    render = () => (
+        <main className='page my-messages-page'>
+            <div className="my-messages-container">
+                <MyMessages loadMessage={this.loadMessage} onLinkClick={this.onLinkClick} messages={this.state.messages} />
+                {this.state.singleMessage && <SingleMessage {...this.state.singleMessage} onDeleteClick={this.onDeleteClick} />}
+            </div>
+        </main>
+    );
 }
 
 export default withAuthorization(MyMessagesPage, 'user');

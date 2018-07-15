@@ -4,7 +4,7 @@ import authService from '../../webModule/authService';
 import withAuthorization from '../hocs/withAuthorization';
 
 class CreateCategoryPage extends Component {
-    onFormSubmit = (res) => {
+    onFormSubmit = () => {
         this.props.history.push('/categories');
     }
     render() {

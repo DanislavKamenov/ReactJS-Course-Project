@@ -6,9 +6,7 @@ import observer from '../../../infrastructure/observer';
 import withAuthorization from '../../hocs/withAuthorization';
 
 class SendPrivateMessage extends Component {
-    onMessageSubmit = () => {        
-        this.props.history.goBack();
-    }
+    onMessageSubmit = () => this.props.history.goBack();
 
     render() {
         const user = authService.getProfile();

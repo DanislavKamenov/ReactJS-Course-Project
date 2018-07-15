@@ -22,17 +22,15 @@ class ViewPostsPage extends Component {
         };
     }
 
-    componentDidMount() {
-        this.getPosts(this.state.activePage);
-    }
+    componentDidMount = () => this.getPosts(this.state.activePage);
 
-    getPosts = (pageNum) => {
+    getPosts = (pageNum) => 
         webApi.get(`post/all/${this.props.match.params.id}/${pageNum}/${this.state.limit}`)
             .then(res => this.setState({ posts: res.posts, collectionSize: res.size }))
-            .catch(webApi.handleFetchError)
-    }
+            .catch(webApi.handleFetchError);
+    
 
-    addPost = (res) => {
+    addPost = (res) => 
         this.setState((prevState) => {
             prevState.posts.unshift(res.post);
             prevState.collectionSize++;
@@ -41,11 +39,9 @@ class ViewPostsPage extends Component {
             }
             return prevState.showForm = false;
         });
-    }
+    
 
-    onButtonClick = () => {
-        this.setState({ showForm: !this.state.showForm });
-    }
+    onButtonClick = () => this.setState({ showForm: !this.state.showForm });
 
     onPageChange = (pageNum) => {
         this.getPosts(pageNum);

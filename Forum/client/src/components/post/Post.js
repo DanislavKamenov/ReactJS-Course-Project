@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Post.css';
 import helperService from '../../infrastructure/helperService';
 
-export default (props) => {
+const Post = (props) => {
     const { _id, title, creator, createdOn, content } = props;
 
     return (
@@ -22,3 +22,5 @@ export default (props) => {
         </article>
     );
 };
+
+export default Post;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const UnauthNav = (props) => (
+const UnauthNav = () => (
     <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="navbar" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
